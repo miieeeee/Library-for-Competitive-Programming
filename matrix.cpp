@@ -72,15 +72,40 @@ struct mat {
         return ;
     }
 };
-
 template<typename T>
-mat<T> matrix_pow(mat<T> m,ll p){
-    if(p == 2)return m*m;
-    if(p == 1) return m;
-    if(p % 2 == 1) return matrix_pow(m,p-1) * m;
-    else return matrix_pow(matrix_pow(m,p/2),2);
-}
+struct Matrix{
+    int nrow, ncol;
+    T id;
+    vector<vector<T>> mat;
+    Matrix(int nrow, int ncol, T id=1) : nrow(nrow), ncol(ncol), mat(vector<vector<T>>(nrow, vector<T>(ncol, T()))){}
+    vector<T> &operator[](const int i){ return mat[i]; }
+    Matrix &operator+=(const Matrix &m){ for(int i=0; i<nrow; i++)for(int j=0; j<ncol; j++)mat[i][j]+=m[i][j]; return *this; }
+    Matrix &operator*=(const Matrix &m){ Matrix ret(nrow, m.ncol); for(int i=0; i<nrow; i++)for(int j=0; j<m.ncol; j++)for(int k=0; k<ncol; k++)ret[i][j]+=mat[i][k]*mat[k][j]; *this=ret; return *this; }
+    Matrix operator+(const Matrix &m){ return Matrix(*this)+=m; }
+    Matrix operator*(const Matrix &m){ return Matrix(*this)*=m; }
+    Matrix pow(long long k){
+        Matrix<T> res(nrow, ncol), c=*this;
+        for(int i=0; i<nrow; i++) res[i][i] = id;
+        while(k){
+            if(k&1) res *= c;
+            c*=c;
+            c >>= 1;
+        }
+        return res;
+    }
+    // 反時計回り
+    Matrix &rotate(){
+        Matrix ret(ncol, nrow);
+        for(int i=0; i<nrow; i++){
+            for(int j=0; j<ncol; j++){
+                ret[j][i] = mat[i][ncol-j-1];
+            }
+        }
+        *this = ret;
+        return *this;
+    }
 
+};
 int main(){
     
 }
