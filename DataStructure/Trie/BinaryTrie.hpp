@@ -39,8 +39,8 @@ struct BinaryTrie{
 
     // 削除
     void del(T x){
-        x ^= xor_cum;
         if(count(x) == 0) return;
+        x ^= xor_cum;
         Node* node = start;
         for(int i=SIZE-1; i>=0; i--){
             int val = x>>i&1;

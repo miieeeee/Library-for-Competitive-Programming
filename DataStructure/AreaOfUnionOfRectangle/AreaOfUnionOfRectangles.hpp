@@ -1,8 +1,5 @@
-#include <atcoder/lazysegtree>
-#include <vector>
-#include <queue>
-#include <algorithm>
-using namespace std;
+#pragma once
+
 
 struct AreaOfUnionOfRectangle{
     struct Rectangle{
@@ -15,6 +12,7 @@ struct AreaOfUnionOfRectangle{
     }
 
     long long get(){
+        if(rects.size() == 0) return 0;
         using P = pair<pair<long long, int>, pair<long long, long long>>;
         priority_queue<P, vector<P>, greater<P>> que;
         vector<long long> compy;

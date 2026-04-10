@@ -21,7 +21,7 @@ struct MergeSortTree{
     }
 
     int kth(int l,int r,int k){
-        int lo = 0, up = 1001001001;
+        int lo = -1, up = 1001001001;
         while(up - lo > 1){
             int mid = (lo+up)/2;
             if(lower(l,r,mid) >= k) up = mid;
