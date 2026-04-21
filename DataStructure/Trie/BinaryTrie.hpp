@@ -97,8 +97,29 @@ struct BinaryTrie{
         return ret;
     }
 
+    int count_less_than(T x) {
+        Node *node = start;
+        int ret = 0;
+        for(int i=SIZE-1; i>=0; i--) {
+            if(node == nullptr) break;
+            int val = xor_cum>>i&1;
+            auto left = node->nxt[val];
+            auto right = node->nxt[1^val];
+
+            if(x>>i&1) {
+                if(left != nullptr) ret += left->prefix_cnt;
+                node = right;
+            }
+            else {
+                node = left;
+            }
+        }
+
+        return ret;
+    }
+
     // 追加した値、これから追加する値すべてにxor xを作用させる
-    void add_xor(T x){
+    void apply_xor(T x){
         xor_cum ^= x;
         return;
     }
