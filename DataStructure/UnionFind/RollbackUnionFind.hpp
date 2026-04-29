@@ -14,6 +14,7 @@ struct RollbackUnionFind{
         if(par[x] > par[y]) swap(x,y);
         par[x] += par[y];
         par[y] = x;
+        return true;
     }
 
     int find(int k){
