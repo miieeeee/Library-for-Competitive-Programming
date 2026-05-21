@@ -1,5 +1,6 @@
 #pragma once
 
+
 /// @brief staticな列に対してO(nlogn)で構築O(1)で範囲取得ができる（結合則が必要）
 /// @tparam T 
 /// @tparam op 
