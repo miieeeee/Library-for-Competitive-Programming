@@ -9,7 +9,7 @@ struct Segment{
     Segment() = default;
     Segment(Point<S> _A, Point<S> _B) : A(_A), B(_B) {} 
 
-    friend bool is_intersection(Segment<S> l1, Segment<S> l2, bool on_segment=false){
+    static bool is_intersection(Segment<S> l1, Segment<S> l2, bool on_segment=false){
         S ccw1 = ccw(l1.A, l1.B, l2.A);
         S ccw2 = ccw(l1.A, l1.B, l2.B);
         S ccw3 = ccw(l2.A, l2.B, l1.A);
@@ -19,5 +19,5 @@ struct Segment{
         return false;
     }
 
-    Line<S> to_Line() { return Line(A, B); }
+    Line<S> to_line() { return Line(A, B); }
 };

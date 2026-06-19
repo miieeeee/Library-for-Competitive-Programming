@@ -1,3 +1,5 @@
+#pragma once
+
 long long extGCD(long long a,long long b, long long &x,long long &y){
     long long d = a;
     if(b != 0){
