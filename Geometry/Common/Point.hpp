@@ -1,5 +1,7 @@
 #pragma once
-#define EPS 1e-8;
+#ifndef EPS
+    #define EPS 1e-8
+#endif
 
 template <typename S>
 struct Point {
@@ -33,8 +35,11 @@ struct Point {
         return (*this) = (*this)/k;
     }
 
-    bool operator==(const Point &a) const {
-        return this.x == a.x && this.y == a.y;
+    bool operator==(const Point<S> &a) const {
+        if(std::is_floating_point<S>::value) {
+            return std::abs(this->x - a.x) < EPS && std::abs(this->y - a.y) < EPS;
+        }
+        return this->x == a.x && this->y == a.y;
     }
     bool operator!=(const Point &a) const {
         return !((*this) == a);
@@ -43,7 +48,7 @@ struct Point {
 
 template <typename S>
 S dot(const Point<S> &a, const Point<S> &b){
-    return a.x*b.x + a.y(b.y);
+    return a.x*b.x + a.y*b.y;
 }
 
 template <typename S>
