@@ -12,7 +12,7 @@ bool miller_rabin(long long n) {
 
     std::vector<long long> as;
     if(n < (1<<30)) as = {2, 7, 61};
-    else as = {2, 325, 9375, 28178, 450775, 9780504};
+    else as = {2, 325, 9375, 28178, 450775, 9780504, 1795265022};
 
     mint::set_mod(n);
     for(long long a : as) {
