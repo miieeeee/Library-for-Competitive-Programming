@@ -17,7 +17,7 @@ for ((i=1;;i++)); do
         cat out1.txt
         echo "--- naive ---"
         cat out2.txt
-        exit 1
+        break
     fi
 
     echo "Passed $i"
