@@ -1,16 +1,19 @@
 #pragma once
 
+#include <array>
+#include <cassert>
+
 /// @brief Binary Trie data structure. k番目の要素をとれるmultisetみたいな感じ.
 /// @tparam T Type of the elements stored in the trie
 /// @tparam SIZE ワードサイズ(入れる数字の最大のビット数)
 template<typename T, int SIZE>
 struct BinaryTrie{
     struct Node{
-        array<Node*, 2> nxt;
+        std::array<Node*, 2> nxt;
         int cnt;
         int prefix_cnt;
         Node() : cnt(0){
-            fill(nxt.begin(), nxt.end(), nullptr);
+            std::fill(nxt.begin(), nxt.end(), nullptr);
         }
     };
     Node* start;
@@ -97,6 +100,9 @@ struct BinaryTrie{
         return ret;
     }
 
+    /// @brief x 以下の要素数を数える
+    /// @param x 
+    /// @return 
     int count_less_than(T x) {
         Node *node = start;
         int ret = 0;
