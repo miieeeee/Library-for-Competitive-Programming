@@ -1,22 +1,35 @@
 #pragma once
 
+#include <vector>
+#include <queue>
+#include <functional>
+#include <unordered_map>
+#include "atcoder/lazysegtree.hpp"
 
+/// @brief 長方形領域の和の面積. add: O(1). get: O(NlogN)
 struct AreaOfUnionOfRectangle{
     struct Rectangle{
         long long l, d, r, u;
     };
-    vector<Rectangle> rects;
+    std::vector<Rectangle> rects;
 
+    /// @brief 長方形領域を一つ追加する
+    /// @param l 左端のx座標
+    /// @param d 下端のy座標
+    /// @param r 右端のx座標
+    /// @param u 上橋のy座標
     void add(long long l, long long d, long long r, long long u){
         rects.push_back(Rectangle{l, d, r, u});
     }
 
+    /// @brief addで追加した領域の和集合の面積を返す
+    /// @return 面積(long long)
     long long get(){
         if(rects.size() == 0) return 0;
-        using P = pair<pair<long long, int>, pair<long long, long long>>;
-        priority_queue<P, vector<P>, greater<P>> que;
-        vector<long long> compy;
-        vector<long long> compx;
+        using P = std::pair<std::pair<long long, int>, std::pair<long long, long long>>;
+        std::priority_queue<P, std::vector<P>, std::greater<P>> que;
+        std::vector<long long> compy;
+        std::vector<long long> compx;
         for(auto rect : rects){
             compy.push_back(rect.d);
             compy.push_back(rect.u);
@@ -26,12 +39,12 @@ struct AreaOfUnionOfRectangle{
             que.push({{rect.r, -1}, {rect.d, rect.u}});
         }
 
-        sort(compx.begin(), compx.end());
-        sort(compy.begin(), compy.end());
+        std::sort(compx.begin(), compx.end());
+        std::sort(compy.begin(), compy.end());
         compx.erase(unique(compx.begin(), compx.end()), compx.end());
         compy.erase(unique(compy.begin(), compy.end()), compy.end());
         
-        unordered_map<long long, int> mpx, mpy;
+        std::unordered_map<long long, int> mpx, mpy;
         for(int i=0; i<compx.size(); i++){
             mpx[compx[i]] = i;
         }

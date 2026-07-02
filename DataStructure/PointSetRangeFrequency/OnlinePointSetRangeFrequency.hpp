@@ -1,4 +1,6 @@
 #pragma once
+
+#include "Concept/MyConcept.hpp"
 #include "DataStructure/SegTree/DynamicSegTree.hpp"
 #include "DataStructure/HashMap/CustomHashMap.hpp"
 
@@ -28,6 +30,9 @@ public:
         }
     }
 
+    /// @brief O(log N)
+    /// @param idx 
+    /// @param x 
     void set(int idx, T x) {
         assert(idx >= 0 && idx < n);
         root[a[idx]] = seg.set(root[a[idx]], idx, 0);
@@ -38,6 +43,11 @@ public:
         a[idx] = x;
     }
 
+    /// @brief [l, r)に存在するxの個数 O(log N)
+    /// @param l 
+    /// @param r 
+    /// @param x 
+    /// @return 
     int query(long long l, long long r, T x) {
         assert(l >= 0 && l <= r && r <= n);
         if(!root.get(x, nullptr)) { return 0; }

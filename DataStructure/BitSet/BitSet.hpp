@@ -1,10 +1,14 @@
 #pragma once
 
+#include <vector>
+#include <string>
+#include <cassert>
+
 // from Nyaan's Library
 // https://nyaannyaan.github.io/library/data-structure/dynamic-bitset.hpp
 struct BitSet {
   using u64 = unsigned long long;
-  vector<u64> a;
+  std::vector<u64> a;
   size_t N;
 
   static u64 maskbit(size_t pos) { return 1uLL << pos; }
@@ -35,7 +39,7 @@ struct BitSet {
 
   BitSet():a(1, 0), N(64){}
   BitSet(size_t _N) : a((_N + 63) / 64, 0), N(_N) {}
-  BitSet(string s) : a((s.size() + 63) / 64, 0), N(s.size()) {
+  BitSet(std::string s) : a((s.size() + 63) / 64, 0), N(s.size()) {
     for(int i=0; i<(int)N; i++){
         if(s[i] == '1') set(i);
     }

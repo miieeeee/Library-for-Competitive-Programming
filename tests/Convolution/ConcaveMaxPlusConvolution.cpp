@@ -1,4 +1,4 @@
-#include "Convolution/MinPlusPlus/ConvexMinPlusConvolutno.hpp"
+#include "Convolution/MaxPlusPlus/ConcaveMaxPlusConvolution.hpp"
 #include <bits/stdc++.h>
 
 using namespace std;
@@ -13,8 +13,10 @@ int main() {
     vector<int> b(m);
     for(int i=0; i<n; i++) cin >> a[i];
     for(int i=0; i<m; i++) cin >> b[i];
+    for(auto &x : a) x = -x;
+    for(auto &x : b) x = -x;
 
-    auto c = convex_min_plus_convolution(b, a, 2001001001);
-    for(int i=0; i<n+m-1; i++) cout << c[i] << " ";
+    auto c = concave_max_plus_convolution(b, a, -2001001001);
+    for(int i=0; i<n+m-1; i++) cout << -c[i] << " ";
     cout << endl;
 }

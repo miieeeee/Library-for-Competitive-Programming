@@ -41,7 +41,7 @@ using pqg = priority_queue<T, vc<T>, greater<T>>;
 #define rall(a) (a).rbegin(),(a).rend()
 #define MIN(vec) *min_element(vec)
 #define MAX(vec) *max_element(vec)
-#define next_perm(vec) (vec).begin(), (vec).end()
+#define next_perm(vec) next_permutation((vec).begin(), (vec).end())
 #define UNIQUE(vec) vec.erase(unique(vec.begin(), vec.end()), vec.end())
 #define el "\n"
 #define Yes cout << "Yes" << el

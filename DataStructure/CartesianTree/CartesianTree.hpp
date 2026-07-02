@@ -1,16 +1,21 @@
 #pragma once
 
+#include <vector>
+#include <stack>
+
+/// @brief 最小値を根とするCartesianTreeを構築する
+/// @tparam S 
 template<typename S>
 struct CartesianTree{
     int n;
-    vector<S> a;
-    vector<int> par;
+    std::vector<S> a;
+    std::vector<int> par;
     int root = 0;
-    CartesianTree(vector<S> &a) : a(a), n(a.size()), par(a.size(), -1){
+    CartesianTree(std::vector<S> &a) : a(a), n(a.size()), par(a.size(), -1){
         build();
     }
     void build(){
-        stack<S> st;
+        std::stack<S> st;
         for(int i=0; i<n; i++){
             int prev = -1;
             while(!st.empty() && a[st.top()] > a[i]){

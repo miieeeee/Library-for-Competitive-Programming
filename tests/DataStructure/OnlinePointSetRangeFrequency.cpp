@@ -1,13 +1,10 @@
+#include <bits/stdc++.h>
+using namespace std;
 #pragma GCC target("avx2")
 #pragma GCC optimize("O3")
 #pragma GCC optimize("unroll-loops")
-#include <bits/stdc++.h>
-using namespace std;
-#include <atcoder/all> 
-using namespace atcoder;
 
 // 数値型
-using mint = modint998244353;
 using ll = long long;
 using ull = unsigned long long;
 using ld = long double;
@@ -82,17 +79,6 @@ ostream &operator<< (ostream &os, vc<T> &vec) {
     return os;
 }
 
-ostream &operator<< (ostream &os, mint &a) {
-    os << a.val();
-    return os;
-}
-
-istream &operator>> (istream &is, mint &a) {
-    ll x;
-    is >> x;
-    a = x;
-    return is;
-}
 template<typename T1, typename T2>
 istream &operator>> (istream &is, pair<T1, T2> &p) {
     is >> p.first >> p.second;

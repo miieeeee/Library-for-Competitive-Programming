@@ -1,6 +1,7 @@
 #pragma once
 
 #include <vector>
+#include <algorithm>
 
 struct MergeSortTree{
     std::vector<std::vector<int>> segtree;
@@ -16,7 +17,7 @@ struct MergeSortTree{
     void build(){
         for(int i=N-2;i>=0;i--){
             std::vector<int> l = segtree[i*2+1],r = segtree[i*2+2];
-            merge(l.begin(),l.end(),r.begin(),r.end(),back_inserter(segtree[i]));   
+            std::merge(l.begin(),l.end(),r.begin(),r.end(),back_inserter(segtree[i]));   
         }
     }
 
@@ -33,7 +34,7 @@ struct MergeSortTree{
     int lower(int l,int r,int x,int idx=0,int i=0,int j=0){
         if(idx == 0) j = N;
         if(l >= j || r <= i) return 0;
-        if(l <= i && r >= j) return upper_bound(segtree[idx].begin(),segtree[idx].end(),x) - segtree[idx].begin();
+        if(l <= i && r >= j) return std::upper_bound(segtree[idx].begin(),segtree[idx].end(),x) - segtree[idx].begin();
         return lower(l,r,x,2*idx+1,i,(i+j)/2) + lower(l,r,x,2*idx+2,(i+j)/2,j);
     }
 };

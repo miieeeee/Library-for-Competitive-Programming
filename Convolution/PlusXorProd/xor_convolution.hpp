@@ -3,7 +3,7 @@
 #include "Convolution/PlusXorProd/fast_hadmard_transform.hpp"
 
 template<typename T>
-std::vector<T> xor_convolution(const std::vector<T> a, const std::vector<T> b) {
+std::vector<T> xor_convolution(std::vector<T> a, std::vector<T> b) {
     assert(a.size() == b.size());
 
     int sz = a.size();
