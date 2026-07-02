@@ -1,7 +1,13 @@
 #pragma once
-#include <algorithm>
-#include "Concept/Algebra.hpp"
 
+#include "Concept/Algebra.hpp"
+#include <algorithm>
+#include <cassert>
+
+
+/// @brief 疎な列に対するセグ木, 永続化も簡単にできる
+/// @tparam MX 
+/// @tparam SIZE 
 template<my_concept::Monoid MX, int SIZE>
 struct DynamicSegTree {
     using X = typename MX::value_type;
@@ -21,6 +27,8 @@ public:
         pool = new Node[SIZE];
     }
 
+    /// @brief 新しいセグ木を作成する際に呼ぶ. ここで得たrootを使いまわすイメージ
+    /// @return 
     Node* new_root() { return nullptr; }
 
     Node* new_node(long long idx, const X x) {
@@ -40,6 +48,11 @@ public:
 
     X all_prod(Node* root) { return prod(root, L0, R0); }
 
+    /// @brief set して更新された root を返す.(永続化してない場合は与えたrootをそのまま返り値で更新)
+    /// @param root 
+    /// @param idx 
+    /// @param x 
+    /// @return 
     Node* set(Node* root, long long idx, const X& x) {
         assert(L0 <= idx && idx < R0);
         return set_rec(root, L0, R0, idx, x);
@@ -52,12 +65,19 @@ private:
         if (v->rc) v->prod = MX::op(v->prod, v->rc->prod);
     }
 
+    // 永続化が必要な場合
+    // np copy_node(np c) {
+    //     if(!c) return c;
+    //     pool[pid] = *c;
+    //     return &(pool[pid++]);
+    // }
+
     Node* set_rec(Node* v, long long l, long long r, long long idx, X x) {
         if (!v) {
             v = new_node(idx, x);
             return v;
         }
-
+        // v = copy_node(v);
         if(v->idx == idx) {
             v->x = x;
             update(v);
