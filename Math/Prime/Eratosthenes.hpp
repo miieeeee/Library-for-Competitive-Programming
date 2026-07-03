@@ -13,18 +13,23 @@ std::vector<bool> eratosthenes(int n){
     return is_prime;
 }
 
+/// @brief 素数真理値表/最小素因数表/メビウス関数表を作成する. (mobius反転: g(x) = \sum_{d|x}f(d) のとき, f(x) = \sum_{d|x} \mu(x/d)g(d))
 struct Eratostheness {
     std::vector<bool> is_prime;
     std::vector<int> factor;
+    std::vector<int> mu;
 
-    Eratostheness(int n) : is_prime(n, true), factor(n, -1) {
+    Eratostheness(int n) : is_prime(n, true), factor(n, -1), mu(n, 1) {
         is_prime[0] = is_prime[1] = false;  
         factor[1] = 1;
         for(int p=2; p<n; p++){
             if(!is_prime[p]) continue;
+            mu[p] = -1;
             factor[p] = p;
             for(int i=p*2; i<n; i+=p) {
                 is_prime[i] = false;
+                if((i/p)%p == 0) mu[i] = 0;
+                else mu[i] = -mu[i];
                 if(factor[i] == -1) factor[i] = p;
             }
         }
